@@ -55,9 +55,11 @@ class AnalysisService( object ):
   def __init__( self, user_options ):
     dart_bin = FindDartBinary( user_options )
     analysis_server_path = FindDartAnalysisServer( user_options )
+    pre_flags_string = user_options.get( 'dart_analysis_server_pre_flags' )
     flags_string = user_options.get( 'dart_analysis_server_flags' )
     flags = [] if not flags_string else flags_string.split( ' ' )
-    cmd = [ dart_bin, analysis_server_path ] + flags
+    pre_flags = [] if not pre_flags_string else pre_flags_string.split( ' ' )
+    cmd = [ dart_bin ] + pre_flags + [ analysis_server_path ] + flags
     self._process = utils.SafePopen( cmd,
                                      stdin=subprocess.PIPE,
                                      stdout=subprocess.PIPE )
