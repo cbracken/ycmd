@@ -263,7 +263,7 @@ class DartCompleter( Completer ):
   def _GoToDefinition( self, request_data ):
     r = RequestData( request_data )
     result = self._service.GetNavigation( r.filename, r.offset, 1 )
-    if 'targets' in result and 'files' in result:
+    if 'targets' in result and 'files' in result and result['targets']:
       target = result[ 'targets' ][ 0 ]
       filepath = result[ 'files' ][ target[ 'fileIndex' ] ]
       return responses.BuildGoToResponse( filepath,
